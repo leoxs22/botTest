@@ -3,15 +3,22 @@ package registerBot
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.firefox.FirefoxDriver
 import java.util.concurrent.TimeUnit
-
+import org.openqa.selenium.Point
+import org.openqa.selenium.Dimension
 
 class TestClass {
 	def static void main(String[] args) {
 		var WebDriver driver = new FirefoxDriver
+		var WebDriver driverConfirm = new FirefoxDriver
 		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS)
-		driver.manage().window().maximize()
-		for(var i=4;i<10;i++){
-			ExcelManager.leerUsuario(i).registrar(driver)
+		//ajustar esto en base a resolucion de pantalla
+		driver.manage.window.position = new Point(0,0)
+		driver.manage.window.size = new Dimension(950,1000)
+		driverConfirm.manage.window.position = new Point(951,0)
+		driverConfirm.manage.window.size = new Dimension(950,1000)
+		
+		for(var i=11;i<13;i++){
+			ExcelManager.leerUsuario(i).registrar(driver, driverConfirm)
 		}
 		//ExcelManager.leerUsuario(1).registrar(driver)
 		//ExcelManager.leerUsuario(2).registrar(driver)

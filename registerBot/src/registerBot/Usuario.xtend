@@ -16,34 +16,33 @@ class Usuario {
 	var apellido = ""
 	var mail = ""
 	var pass = "reasada"
-	var link=""
+	var link = ""
 	var WebDriver driver
 
 	new(String n, String a, String m, String l) {
 		nombre = n
 		apellido = a
 		mail = m
-		link=l
+		link = l
 	}
 
-	def registrar(WebDriver d) {
+	def registrar(WebDriver d, WebDriver driverConfirm) {
 		this.driver = d
-		var WebDriver driverConfirm = new FirefoxDriver
 		var url = Reference.HOME_URL
 		driver.get(url)
 		abrirMail(driverConfirm)
 		driver.switchTo.activeElement
 		completarRegistro()
-		if(confirmarMail(driverConfirm)){
+		if (confirmarMail(driverConfirm)) {
 			driver.get(Reference.HOME_URL)
 			loguearYVotar()
 		}
-		
+
 	// driver=null
 	}
-	
+
 	def loguearYVotar() {
-		
+
 		var WebElement btnEntrar = driver.findElement(By.id("trigger-sesion"))
 		btnEntrar.click
 		var WebElement btnInversor = driver.findElement(By.id("linkSoyInversionista"))
@@ -53,7 +52,7 @@ class Usuario {
 		var WebElement passw = driver.findElement(By.id("clave_inversionista"))
 		passw.sendKeys(pass)
 		var JavascriptExecutor js
-		js= driver as JavascriptExecutor
+		js = driver as JavascriptExecutor
 		js.executeScript("loginInversionista()")
 		Thread.sleep(1000)
 		new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.id("foto_inversionista")))
@@ -63,35 +62,38 @@ class Usuario {
 		new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.id("cuanto")))
 		js.executeScript("document.getElementById(\"cuanto\").selectedIndex = 20")
 		/*var Select selector = new Select(driver.findElement(By.id("cuanto")))
-		selector.selectByValue("20000")*/
+		 selector.selectByValue("20000")*/
 		var WebElement btnInvertir = driver.findElement(By.className("btnRInv"))
 		btnInvertir.click
 		Thread.sleep(500)
 		driver.get(Reference.SALIR_URL)
-		
-		
-	
-		
+
 	}
-	
+
 	def abrirMail(WebDriver driverConfirm) {
 		driverConfirm.get(link)
-		
+
 	}
-	
+
 	def confirmarMail(WebDriver driverConfirm) {
-		driverConfirm.manage.window.maximize
 		driverConfirm.switchTo.activeElement
-		if(new CaptchaDialog().preguntarPorMailConfirmado){
-			driverConfirm.close
-			return true	
-		}else{
-			tirarError("No se pudo confirmar mail")
-			driverConfirm.close
-			return false	
+		if (new CaptchaDialog().preguntarPorMailConfirmado) {
+			/*var String parentHandle = driverConfirm.getWindowHandle();
+			for (String winHandle : driverConfirm.getWindowHandles()) {
+				driver.switchTo().window(winHandle);
+			}
+
+			driverConfirm.close();
+			driverConfirm.switchTo().window(parentHandle);*/
 			
+			return true
+		} else {
+			tirarError("No se pudo confirmar mail")
+			
+			return false
+
 		}
-		
+
 	}
 
 	def completarRegistro() {
@@ -149,7 +151,7 @@ class Usuario {
 	}
 
 	def ponerNombre() {
-		
+
 		var WebElement campoNombre = driver.findElement(By.id("nombre"))
 		new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOf(campoNombre))
 		if (campoNombre.displayed) {
