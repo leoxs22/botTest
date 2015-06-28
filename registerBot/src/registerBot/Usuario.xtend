@@ -28,19 +28,18 @@ class Usuario {
 
 	def registrar(WebDriver d) {
 		this.driver = d
-		/*var WebDriver driverConfirm = new FirefoxDriver
+		var WebDriver driverConfirm = new FirefoxDriver
 		abrirMail(driverConfirm)
 		var url = Reference.HOME_URL
 		driver.get(url)
-		driver.manage().window().maximize()
+		
 		driver.switchTo.activeElement
 		completarRegistro()
 		if(confirmarMail(driverConfirm)){
 			loguearYVotar()
-		}*/
-	// driver.close()
+		}
+		
 	// driver=null
-	loguearYVotar()
 	}
 	
 	def loguearYVotar() {
@@ -60,7 +59,7 @@ class Usuario {
 		new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.id("foto_inversionista")))
 		driver.get(Reference.PROYECTO_URL)
 		js.executeScript("verificar_invertir(483)")
-		Thread.sleep(5000)
+		Thread.sleep(1000)
 		new WebDriverWait(driver, 10).until(ExpectedConditions.presenceOfElementLocated(By.id("cuanto")))
 		js.executeScript("document.getElementById(\"cuanto\").selectedIndex = 20")
 		/*var Select selector = new Select(driver.findElement(By.id("cuanto")))
