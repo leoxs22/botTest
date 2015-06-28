@@ -66,6 +66,8 @@ class Usuario {
 		selector.selectByValue("20000")*/
 		var WebElement btnInvertir = driver.findElement(By.className("btnRInv"))
 		btnInvertir.click
+		Thread.sleep(500)
+		driver.get(Reference.SALIR_URL)
 		
 		
 	
