@@ -29,9 +29,9 @@ class Usuario {
 	def registrar(WebDriver d) {
 		this.driver = d
 		var WebDriver driverConfirm = new FirefoxDriver
-		abrirMail(driverConfirm)
 		var url = Reference.HOME_URL
 		driver.get(url)
+		abrirMail(driverConfirm)
 		driver.switchTo.activeElement
 		completarRegistro()
 		if(confirmarMail(driverConfirm)){
@@ -103,6 +103,7 @@ class Usuario {
 			ponerContraseña()
 			ponerCaptcha()
 			clickEnviar()
+			Thread.sleep(1000)
 			if (!verificarCorrecto()) {
 				if (new CaptchaDialog().preguntarPorMalRegistro) { // es true si el usuario quiere refrescar
 					driver.get(Reference.HOME_URL)
