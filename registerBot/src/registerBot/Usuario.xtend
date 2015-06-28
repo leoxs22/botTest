@@ -67,6 +67,7 @@ class Usuario {
 		btnInvertir.click
 		Thread.sleep(500)
 		driver.get(Reference.SALIR_URL)
+		driver.findElement(By.className("trigger-convocatoria"))
 
 	}
 

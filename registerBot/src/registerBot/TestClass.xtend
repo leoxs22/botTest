@@ -17,8 +17,9 @@ class TestClass {
 		driverConfirm.manage.window.position = new Point(951,0)
 		driverConfirm.manage.window.size = new Dimension(950,1000)
 		
-		for(var i=11;i<13;i++){
+		for(var i=20;i<30;i++){
 			ExcelManager.leerUsuario(i).registrar(driver, driverConfirm)
+			Thread.sleep(1000)
 		}
 		//ExcelManager.leerUsuario(1).registrar(driver)
 		//ExcelManager.leerUsuario(2).registrar(driver)
