@@ -32,10 +32,10 @@ class Usuario {
 		abrirMail(driverConfirm)
 		var url = Reference.HOME_URL
 		driver.get(url)
-		
 		driver.switchTo.activeElement
 		completarRegistro()
 		if(confirmarMail(driverConfirm)){
+			driver.get(Reference.HOME_URL)
 			loguearYVotar()
 		}
 		
@@ -43,7 +43,7 @@ class Usuario {
 	}
 	
 	def loguearYVotar() {
-		driver.get(Reference.HOME_URL)
+		
 		var WebElement btnEntrar = driver.findElement(By.id("trigger-sesion"))
 		btnEntrar.click
 		var WebElement btnInversor = driver.findElement(By.id("linkSoyInversionista"))
